@@ -33,9 +33,8 @@ public class Pessoa {
 	}
 	
 	/* Methods */
-	
 	public void salvar() {
-		System.out.println("Pessoa Salva.");
+		System.out.println(this.nome + " foi salva.");
 	}
 	
 }
