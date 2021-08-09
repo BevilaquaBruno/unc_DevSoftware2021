@@ -1,17 +1,15 @@
-package farmacia;
+package testesFarmacia;
 
 import java.util.Scanner;
 
-public class Principal {
+public class TesteEntradaSaidaConsole {
 
 	public static void main(String[] args) {
-		Farmaceutico f = new Farmaceutico();
 		Scanner scan = new Scanner(System.in);
 
 		System.out.print("Digite seu nome: ");
 		String nome = scan.nextLine();
-		f.setNome(nome);
-		System.out.println("Nome informado: " + f.getNome());
+		System.out.println("Seu nome é: " + nome);
 
 		scan.close();
 	}
