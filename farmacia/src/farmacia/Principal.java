@@ -1,18 +1,24 @@
 package farmacia;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Principal {
 
-	public static void main(String[] args) {
-		Farmaceutico f = new Farmaceutico();
+	public static void main(String[] args) throws IOException {
 		Scanner scan = new Scanner(System.in);
-
+		
+		Cliente p = new Cliente();
 		System.out.print("Digite seu nome: ");
-		String nome = scan.nextLine();
-		f.setNome(nome);
-		System.out.println("Nome informado: " + f.getNome());
+		p.setNome(scan.nextLine());
+		System.out.print("Digite seu CPF: ");
+		p.setCpf(scan.nextLine());
+		System.out.print("Digite seu RG: ");
+		p.setRg(scan.nextLine());
+		System.out.print("Digite seu telefone: ");
+		p.setTelefone(scan.nextLine());
 
+		p.salvar();
 		scan.close();
 	}
 

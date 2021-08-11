@@ -1,11 +1,16 @@
 package farmacia;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 public class Funcionario extends Pessoa{
 	/* Attributes */
 	private String pis;
 	private String pasep;
 	private String carteiraTrabalho;
 	private String salario;
+	private static String ARQUIVO = "C:/bruno/UNC/2_fase/desenvolvimento_software/unc_DevSoftware2021/farmacia/database/funcionario.csv";
 	
 	/* Getters */
 	public String getPis() {
@@ -39,5 +44,25 @@ public class Funcionario extends Pessoa{
 	
 	public void setSalario(String salario) {
 		this.salario = salario;
+	}
+	
+	/* Overrides */
+	@Override
+	public String toString() {
+		return super.toString()+";"+this.pis+";"+this.pasep+";"+this.carteiraTrabalho+";"+this.salario;
+	}
+	
+	@Override
+	public void salvar() {
+		try {
+			File f = new File(Funcionario.ARQUIVO);
+			FileOutputStream fos = new FileOutputStream(f, true);
+			String txt = this.toString()+"\n";
+			fos.write(txt.getBytes());
+			fos.close();
+			System.out.println("Gravado com sucesso.");
+		} catch (IOException e) {
+			System.out.println("Erro ao gravar..");
+		}
 	}
 }
