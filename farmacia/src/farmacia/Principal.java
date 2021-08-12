@@ -7,6 +7,7 @@ public class Principal {
 
 	public static void main(String[] args) throws IOException {
 		Scanner scan = new Scanner(System.in);
+		Pessoa.lerTodos();
 		
 		Cliente p = new Cliente();
 		System.out.print("Digite seu nome: ");
@@ -17,6 +18,7 @@ public class Principal {
 		p.setRg(scan.nextLine());
 		System.out.print("Digite seu telefone: ");
 		p.setTelefone(scan.nextLine());
+		
 
 		p.salvar();
 		scan.close();
