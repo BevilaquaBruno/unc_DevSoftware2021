@@ -13,9 +13,11 @@ public class Farmaceutico extends Funcionario{
 	private String registroAnvisa;
 	private static String ARQUIVO = "C:/bruno/UNC/2_fase/desenvolvimento_software/unc_DevSoftware2021/farmacia/database/farmaceutico.csv";
 	
-	public Farmaceutico(String a[]) {
-		super(a);
-		this.registroAnvisa = a[7];
+	public Farmaceutico(String nome,String cpf, String rg,
+			String pis, String pasep, String carteiraTrabalho, String salario,
+			String registroAnvisa) {
+		super(nome, cpf, rg, pis, pasep, carteiraTrabalho, salario);
+		this.registroAnvisa = registroAnvisa;
 	}
 	
 	/* Getters */
@@ -30,23 +32,11 @@ public class Farmaceutico extends Funcionario{
 	
 	/* Methods */
 	public List<Farmaceutico> lerTodosFarmaceuticos() {
-		File f = new File(Farmaceutico.ARQUIVO);
-		FileInputStream fis;
 		List<Farmaceutico> lstFarmaceuticos = new ArrayList<Farmaceutico>();
-		try {
-			fis = new FileInputStream(f);
-			Scanner scan = new Scanner(fis);
-			
-			while(scan.hasNext()) {
-				String linha = scan.nextLine();
-				String arr[] = linha.split(";");
-				Farmaceutico farmaceuticoAtual = new Farmaceutico(arr);
-				lstFarmaceuticos.add(farmaceuticoAtual);
-			}
-			scan.close();
-			fis.close();
-		} catch (IOException e) {
-			System.out.println("Erro ao Gravar");
+		List<String[]> lstGeneric = Generico.lerArquivo(Farmaceutico.ARQUIVO);
+		for (String[] g : lstGeneric) {
+			Farmaceutico farmaceuticoAtual = new Farmaceutico(g[0], g[1], g[2], g[3], g[4], g[5], g[6], g[7]);
+			lstFarmaceuticos.add(farmaceuticoAtual);
 		}
 		return lstFarmaceuticos;
 	}

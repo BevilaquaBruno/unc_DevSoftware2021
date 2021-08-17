@@ -17,12 +17,13 @@ public class Funcionario extends Pessoa{
 	private static String ARQUIVO = "C:/bruno/UNC/2_fase/desenvolvimento_software/unc_DevSoftware2021/farmacia/database/funcionario.csv";
 	
 	/* Constructor */
-	public Funcionario (String a[]) {
-		super(a[0], a[1], a[2]);
-		this.pis = a[3];
-		this.pasep = a[4];
-		this.carteiraTrabalho = a[5];
-		this.salario = Double.parseDouble(a[6]);
+	public Funcionario (String nome,String cpf, String rg,
+			String pis, String pasep, String carteiraTrabalho, String salario) {
+		super(nome, cpf, rg);
+		this.pis = pis;
+		this.pasep = pasep;
+		this.carteiraTrabalho = carteiraTrabalho;
+		this.salario = Double.parseDouble(salario);
 	}
 	
 	/* Getters */
@@ -61,25 +62,13 @@ public class Funcionario extends Pessoa{
 	
 	/* Methods */
 	public List<Funcionario> lerTodosFuncionarios() {
-		File f = new File(Funcionario.ARQUIVO);
-		FileInputStream fis;
 		List<Funcionario> lstFuncionarios = new ArrayList<Funcionario>();
-		try {
-			fis = new FileInputStream(f);
-			Scanner scan = new Scanner(fis);
-			
-			while(scan.hasNext()) {
-				String linha = scan.nextLine();
-				String arr[] = linha.split(";");
-				Funcionario funcionarioAtual = new Funcionario(arr);
-				lstFuncionarios.add(funcionarioAtual);
-			}
-			scan.close();
-			fis.close();
-		} catch (IOException e) {
-			System.out.println("Erro ao Gravar");
+		List<String[]> lstGeneric = Generico.lerArquivo(Funcionario.ARQUIVO);
+		for (String[] g : lstGeneric) {
+			Funcionario funcionarioAtual = new Funcionario(g[0], g[1], g[2], g[3], g[4], g[5], g[6]);
+			lstFuncionarios.add(funcionarioAtual);
 		}
-		return lstFuncionarios;
+		return lstFuncionarios;	
 	}
 	
 	/* Overrides */

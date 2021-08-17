@@ -31,23 +31,11 @@ public class Cliente extends Pessoa {
 	
 	/* Methods */
 	public List<Cliente> lerTodosClientes() {
-		File f = new File(Cliente.ARQUIVO);
-		FileInputStream fis;
 		List<Cliente> lstClientes = new ArrayList<Cliente>();
-		try {
-			fis = new FileInputStream(f);
-			Scanner scan = new Scanner(fis);
-			
-			while(scan.hasNext()) {
-				String linha = scan.nextLine();
-				String arr[] = linha.split(";");
-				Cliente clienteAtual = new Cliente(arr[0], arr[1], arr[2], arr[3]);
-				lstClientes.add(clienteAtual);
-			}
-			scan.close();
-			fis.close();
-		} catch (IOException e) {
-			System.out.println("Erro ao Gravar");
+		List<String[]> lstGeneric = Generico.lerArquivo(Cliente.ARQUIVO);
+		for (String[] g : lstGeneric) {
+			Cliente clienteAtual = new Cliente(g[0], g[1], g[2], g[3]);
+			lstClientes.add(clienteAtual);
 		}
 		return lstClientes;
 	}
