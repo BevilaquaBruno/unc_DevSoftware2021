@@ -13,11 +13,9 @@ public class Farmaceutico extends Funcionario{
 	private String registroAnvisa;
 	private static String ARQUIVO = "C:/bruno/UNC/2_fase/desenvolvimento_software/unc_DevSoftware2021/farmacia/database/farmaceutico.csv";
 	
-	public Farmaceutico(String nome, String cpf, String rg,
-		String pis, String pasep, String carteiraTrabalho, String salario,
-		String registroAnvisa) {
-		super(nome, cpf, rg, pis, pasep, carteiraTrabalho, salario);
-		this.registroAnvisa = registroAnvisa;
+	public Farmaceutico(String a[]) {
+		super(a);
+		this.registroAnvisa = a[7];
 	}
 	
 	/* Getters */
@@ -31,7 +29,7 @@ public class Farmaceutico extends Funcionario{
 	}
 	
 	/* Methods */
-	public List<Farmaceutico> lerTodos() {
+	public List<Farmaceutico> lerTodosFarmaceuticos() {
 		File f = new File(Farmaceutico.ARQUIVO);
 		FileInputStream fis;
 		List<Farmaceutico> lstFarmaceuticos = new ArrayList<Farmaceutico>();
@@ -42,8 +40,7 @@ public class Farmaceutico extends Funcionario{
 			while(scan.hasNext()) {
 				String linha = scan.nextLine();
 				String arr[] = linha.split(";");
-				Farmaceutico farmaceuticoAtual = new Farmaceutico(arr[0], arr[1], arr[2], arr[3],
-					arr[4], arr[5], arr[6], arr[7]);
+				Farmaceutico farmaceuticoAtual = new Farmaceutico(arr);
 				lstFarmaceuticos.add(farmaceuticoAtual);
 			}
 			scan.close();
@@ -62,15 +59,6 @@ public class Farmaceutico extends Funcionario{
 	
 	@Override
 	public void salvar() {
-		try {
-			File f = new File(Farmaceutico.ARQUIVO);
-			FileOutputStream fos = new FileOutputStream(f, true);
-			String txt = this.toString()+"\n";
-			fos.write(txt.getBytes());
-			fos.close();
-			System.out.println("Gravado com sucesso.");
-		} catch (IOException e) {
-			System.out.println("Erro ao gravar.");
-		}
+		Generico.escreverArquivo(Farmaceutico.ARQUIVO, this);
 	}
 }

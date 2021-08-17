@@ -30,7 +30,7 @@ public class Cliente extends Pessoa {
 	}
 	
 	/* Methods */
-	public List<Cliente> lerTodos() {
+	public List<Cliente> lerTodosClientes() {
 		File f = new File(Cliente.ARQUIVO);
 		FileInputStream fis;
 		List<Cliente> lstClientes = new ArrayList<Cliente>();
@@ -60,15 +60,6 @@ public class Cliente extends Pessoa {
 	
 	@Override
 	public void salvar() {
-		try {
-			File f = new File(Cliente.ARQUIVO);
-			FileOutputStream fos = new FileOutputStream(f, true);
-			String txt = this.toString()+"\n";
-			fos.write(txt.getBytes());
-			fos.close();
-			System.out.println("Gravado com sucesso.");
-		} catch (IOException e) {
-			System.out.println("Erro ao gravar.");
-		}
+		Generico.escreverArquivo(Cliente.ARQUIVO, this);
 	}
 }

@@ -13,17 +13,16 @@ public class Funcionario extends Pessoa{
 	private String pis;
 	private String pasep;
 	private String carteiraTrabalho;
-	private String salario;
+	private Double salario;
 	private static String ARQUIVO = "C:/bruno/UNC/2_fase/desenvolvimento_software/unc_DevSoftware2021/farmacia/database/funcionario.csv";
 	
 	/* Constructor */
-	public Funcionario (String nome, String cpf, String rg,
-			String pis, String pasep, String carteiraTrabalho, String salario) {
-		super(nome, cpf, rg);
-		this.pis = pis;
-		this.pasep = pasep;
-		this.carteiraTrabalho = carteiraTrabalho;
-		this.salario = salario;
+	public Funcionario (String a[]) {
+		super(a[0], a[1], a[2]);
+		this.pis = a[3];
+		this.pasep = a[4];
+		this.carteiraTrabalho = a[5];
+		this.salario = Double.parseDouble(a[6]);
 	}
 	
 	/* Getters */
@@ -39,7 +38,7 @@ public class Funcionario extends Pessoa{
 		return this.carteiraTrabalho;
 	}
 	
-	public String getSalario() {
+	public Double getSalario() {
 		return this.salario;
 	}
 	
@@ -57,11 +56,11 @@ public class Funcionario extends Pessoa{
 	}
 	
 	public void setSalario(String salario) {
-		this.salario = salario;
+		this.salario = Double.parseDouble(salario);
 	}
 	
 	/* Methods */
-	public List<Funcionario> lerTodosF() {
+	public List<Funcionario> lerTodosFuncionarios() {
 		File f = new File(Funcionario.ARQUIVO);
 		FileInputStream fis;
 		List<Funcionario> lstFuncionarios = new ArrayList<Funcionario>();
@@ -72,8 +71,7 @@ public class Funcionario extends Pessoa{
 			while(scan.hasNext()) {
 				String linha = scan.nextLine();
 				String arr[] = linha.split(";");
-				Funcionario funcionarioAtual = new Funcionario(arr[0], arr[1], arr[2], arr[3],
-					arr[4], arr[5], arr[6]);
+				Funcionario funcionarioAtual = new Funcionario(arr);
 				lstFuncionarios.add(funcionarioAtual);
 			}
 			scan.close();
@@ -92,15 +90,6 @@ public class Funcionario extends Pessoa{
 	
 	@Override
 	public void salvar() {
-		try {
-			File f = new File(Funcionario.ARQUIVO);
-			FileOutputStream fos = new FileOutputStream(f, true);
-			String txt = this.toString()+"\n";
-			fos.write(txt.getBytes());
-			fos.close();
-			System.out.println("Gravado com sucesso.");
-		} catch (IOException e) {
-			System.out.println("Erro ao gravar.");
-		}
+		Generico.escreverArquivo(Funcionario.ARQUIVO, this);
 	}
 }
