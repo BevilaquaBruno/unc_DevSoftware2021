@@ -11,6 +11,7 @@ public class MostrarNome {
 		String nome = scan.nextLine();
 		
 		System.out.println("Seu nome é: " + nome);
+		scan.close();
 	}
 
 }

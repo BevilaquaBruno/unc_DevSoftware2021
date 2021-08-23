@@ -16,7 +16,7 @@ public class Multiplicacao {
 		double result = n1 * n2;
 		
 		System.out.printf("%s * %s = %s", n1, n2, result);
-
+		scan.close();
 	}
 
 }

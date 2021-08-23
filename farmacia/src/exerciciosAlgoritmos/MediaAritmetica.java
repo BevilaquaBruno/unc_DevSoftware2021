@@ -14,5 +14,6 @@ public class MediaAritmetica {
 		double n3 = scan.nextDouble();
 		
 		System.out.printf("A media aritmética é: %s", ((n1+n2+n3)/3));
+		scan.close();
 	}
 }

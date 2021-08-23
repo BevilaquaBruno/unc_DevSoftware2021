@@ -14,6 +14,7 @@ public class ValorVenda {
 		double quantidade = scan.nextDouble();
 		
 		System.out.printf("O valor da venda é %s", (quantidade * preco_unitario));
+		scan.close();
 	}
 
 }
