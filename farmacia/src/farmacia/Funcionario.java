@@ -1,15 +1,28 @@
 package farmacia;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Funcionario extends Pessoa{
+public class Funcionario extends Pessoa implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/* Attributes */
 	private String pis;
 	private String pasep;
 	private String carteiraTrabalho;
 	private Double salario;
 	private static String ARQUIVO = "C:/bruno/UNC/2_fase/desenvolvimento_software/unc_DevSoftware2021/farmacia/database/funcionario.csv";
+	public static String ARQUIVO_SERIALIZACAO = "C:/bruno/UNC/2_fase/desenvolvimento_software/unc_DevSoftware2021/farmacia/database/funcionario.obj";
 	
 	/* Constructor */
 	public Funcionario (String nome,String cpf, String rg,
@@ -56,7 +69,7 @@ public class Funcionario extends Pessoa{
 	}
 	
 	/* Methods */
-	public List<Funcionario> lerTodosFuncionarios() {
+	public static List<Funcionario> lerTodosFuncionarios() {
 		List<Funcionario> lstFuncionarios = new ArrayList<Funcionario>();
 		List<String[]> lstGeneric = Generico.lerArquivo(Funcionario.ARQUIVO);
 		for (String[] g : lstGeneric) {
@@ -64,6 +77,43 @@ public class Funcionario extends Pessoa{
 			lstFuncionarios.add(funcionarioAtual);
 		}
 		return lstFuncionarios;	
+	}
+	public static void serialize() throws IOException, FileNotFoundException {
+		/* Pegando lista de funcionários */
+		List<Funcionario> funcListCsv = Funcionario.lerTodosFuncionarios();
+		System.out.println("Funcionários pegos do csv.");
+		System.out.println("---------------------------------------");
+		File f = new File(Funcionario.ARQUIVO_SERIALIZACAO);
+
+		/* Serializar lista de Funcionários */
+		FileOutputStream fos = new FileOutputStream(f);
+		try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+			oos.writeObject(funcListCsv);
+		}
+	}
+	
+	public static void unserialize() throws IOException, FileNotFoundException, ClassNotFoundException {
+		System.out.println("Funcionários serializados.");
+		System.out.println("---------------------------------------");
+		/* Ler Arquivo Serializado */
+		File f = new File(Funcionario.ARQUIVO_SERIALIZACAO);
+		FileInputStream fis = new FileInputStream(f);
+		try (ObjectInputStream ois = new ObjectInputStream(fis)) {
+			List<Funcionario> funcListSerialized;
+			try {
+				funcListSerialized = (List<Funcionario>) ois.readObject();
+				System.out.println("Funcionários depois de serializado: ");
+				System.out.println(funcListSerialized);
+				System.out.println("---------------------------------------");	
+				for (Funcionario funcionario : funcListSerialized) {
+					System.out.print("To String do funcionário da lista: ");
+					System.out.println(funcionario.toString());
+				}
+			} catch (ClassNotFoundException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	/* Overrides */

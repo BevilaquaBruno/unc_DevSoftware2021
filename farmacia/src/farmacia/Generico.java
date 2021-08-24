@@ -5,11 +5,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Generico {
+	
 	public static List<String[]> lerArquivo(String arquivo) {
 		File f = new File(arquivo);
 		FileInputStream fis;
