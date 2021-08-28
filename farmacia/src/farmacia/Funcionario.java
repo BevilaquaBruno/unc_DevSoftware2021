@@ -78,6 +78,7 @@ public class Funcionario extends Pessoa implements Serializable{
 		}
 		return lstFuncionarios;	
 	}
+
 	public static void serialize() throws IOException, FileNotFoundException {
 		/* Pegando lista de funcionários */
 		List<Funcionario> funcListCsv = Funcionario.lerTodosFuncionarios();
