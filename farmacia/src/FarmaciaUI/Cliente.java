@@ -39,25 +39,8 @@ public class Cliente extends Pessoa {
 	}
 	
 	/* Methods */
-	public static List<Cliente> lerTodosClientes() {
-		List<Cliente> lstClientes = new ArrayList<Cliente>();
-		List<String[]> lstGeneric = Generico.lerArquivo(Cliente.ARQUIVO);
-		for (String[] g : lstGeneric) {
-			Cliente clienteAtual = new Cliente(g[0], g[1], g[2], g[3]);
-			lstClientes.add(clienteAtual);
-		}
-		return lstClientes;
-	}
-	
-	/* Overrides */
-	@Override
-	public String toString() {
-		return super.toString()+";"+this.telefone;
-	}
-	
 	public static void salvar(Cliente cl) throws IOException, FileNotFoundException, ClassNotFoundException {
-		List<Cliente> clieList = Cliente.retornaListaClientes();
-		System.out.println(clieList);
+		List<Cliente> clieList = Cliente.lerTodosClientes();
 		clieList.add(cl);
 		File f = new File(Cliente.ARQUIVO_SERIALIZACAO);
 
@@ -69,10 +52,16 @@ public class Cliente extends Pessoa {
 		System.out.println("O cliente foi salvo!");
 	}
 	
-	public static List<Cliente> retornaListaClientes() throws IOException, FileNotFoundException, ClassNotFoundException {
+	public static List<Cliente> lerTodosClientes() throws IOException, FileNotFoundException, ClassNotFoundException {
 		File f = new File(Cliente.ARQUIVO_SERIALIZACAO);
 		FileInputStream fis = new FileInputStream(f);
 		ObjectInputStream ois = new ObjectInputStream(fis);
 		return (List<Cliente>) ois.readObject();
+	}
+	
+	/* Overrides */
+	@Override
+	public String toString() {
+		return super.toString()+";"+this.telefone;
 	}
 }

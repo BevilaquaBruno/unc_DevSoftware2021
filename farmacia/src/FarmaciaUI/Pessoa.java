@@ -47,21 +47,6 @@ public class Pessoa implements Serializable{
 	public void setRg(String rg) {
 		this.rg = rg;
 	}
-
-	/* Methods */
-	public void salvar() {
-		Generico.escreverArquivo(Pessoa.ARQUIVO, this);
-	}
-	
-	public List<Pessoa> lerTodosPessoas() {
-		List<Pessoa> lstPessoas = new ArrayList<Pessoa>();
-		List<String[]> lstGeneric = Generico.lerArquivo(Pessoa.ARQUIVO);
-		for (String[] g : lstGeneric) {
-			Pessoa pessoaAtual = new Pessoa(g[0], g[1], g[2]);
-			lstPessoas.add(pessoaAtual);
-		}
-		return lstPessoas;
-	}
 	
 	/* Overrides */
 	@Override
