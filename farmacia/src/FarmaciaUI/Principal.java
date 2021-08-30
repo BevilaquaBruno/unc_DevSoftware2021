@@ -2,6 +2,8 @@ package FarmaciaUI;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 
 public class Principal {
@@ -24,6 +26,8 @@ public class Principal {
 		Integer opc = scan.nextInt();
 		if (1 == opc) {
 			showCadastros();
+		}else if (3 == opc) {
+			showRelatorios();
 		}
 		scan.close();
 	}
@@ -45,6 +49,8 @@ public class Principal {
 		}else if (1 == opc){
 			showCadastroCliente();
 		}
+		scan.close();
+		
 	}
 	
 	/*
@@ -53,7 +59,7 @@ public class Principal {
 	
 	private static void showCadastroCliente() throws FileNotFoundException, ClassNotFoundException, IOException {
 		System.out.println("________________________________________________");
-		System.out.println("|                 Clientes                     |");
+		System.out.println("|                 Cliente                      |");
 		System.out.println("|__Digite______________________________________|");
 		Scanner scan = new Scanner(System.in);
 		System.out.print("Nome:");
@@ -72,6 +78,37 @@ public class Principal {
 		if(opc.equals("S")) {
 			Cliente.salvar(clienteCadastro);
 		}
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		showCadastros();
+		scan.close();
+	}
+	
+	private static void showRelatorios() throws FileNotFoundException, ClassNotFoundException, IOException {
+		System.out.println("________________________________________________");
+		System.out.println("|                 Relatórios                   |");
+		System.out.println("|______________________________________________|");
+		System.out.println("|1. Cliente                                    |");
+		System.out.println("|2. Funcionario                                |");
+		System.out.println("|3. Farmaceutico                               |");
+		System.out.println("|4. Produtos                                   |");
+		System.out.println("|5. Voltar                                     |");
+		System.out.print("Digite uma opção: ");
+		Scanner scan = new Scanner(System.in);
+		Integer opc = scan.nextInt();
+		if (1 == opc) {
+			List<Cliente> clientes = Cliente.lerTodosClientes();
+			System.out.println("Imprimindo clientes:");
+			for (Cliente cliente : clientes) {
+				System.out.println(cliente);
+			}
+		}else if(5 == opc) {
+			showMenu();
+		}
+		scan.close();
+		
 	}
 }

@@ -62,6 +62,6 @@ public class Cliente extends Pessoa {
 	/* Overrides */
 	@Override
 	public String toString() {
-		return super.toString()+";"+this.telefone;
+		return super.toString()+" Telefone: "+this.telefone;
 	}
 }

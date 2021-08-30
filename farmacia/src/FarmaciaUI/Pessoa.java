@@ -51,7 +51,7 @@ public class Pessoa implements Serializable{
 	/* Overrides */
 	@Override
 	public String toString() {
-		return this.nome+";"+this.cpf+";"+this.rg;
+		return "Nome: "+this.nome+" CPF: "+this.cpf+" RG:"+this.rg;
 	}
 
 }
