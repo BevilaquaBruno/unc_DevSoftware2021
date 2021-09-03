@@ -7,12 +7,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import farmacia.Funcionario;
 
-public class Cliente extends Pessoa {
+public class Cliente extends Pessoa implements Serializable{
 	/**
 	 * 
 	 */
@@ -52,16 +53,29 @@ public class Cliente extends Pessoa {
 		System.out.println("O cliente foi salvo!");
 	}
 	
-	public static List<Cliente> lerTodosClientes() throws IOException, FileNotFoundException, ClassNotFoundException {
+	public static List<Cliente> lerTodosClientes() throws ClassNotFoundException {
 		File f = new File(Cliente.ARQUIVO_SERIALIZACAO);
-		FileInputStream fis = new FileInputStream(f);
-		ObjectInputStream ois = new ObjectInputStream(fis);
-		return (List<Cliente>) ois.readObject();
+		FileInputStream fis;
+		try {
+			try {
+				fis = new FileInputStream(f);
+				ObjectInputStream ois = new ObjectInputStream(fis);
+				return (List<Cliente>) ois.readObject();
+			} catch (FileNotFoundException e) {
+				FileOutputStream fos = new FileOutputStream(f);
+				ObjectOutputStream oos = new ObjectOutputStream(fos);
+				List<Cliente> cl = new ArrayList();
+				return cl;
+			}
+		} catch (IOException e) {
+			List<Cliente> cl = new ArrayList();
+			return cl;
+		}
 	}
 	
 	/* Overrides */
 	@Override
 	public String toString() {
-		return super.toString()+" Telefone: "+this.telefone;
+		return super.toString()+" Telefone:"+this.telefone;
 	}
 }

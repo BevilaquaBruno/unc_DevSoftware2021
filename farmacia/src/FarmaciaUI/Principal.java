@@ -48,6 +48,8 @@ public class Principal {
 			showMenu();
 		}else if (1 == opc){
 			showCadastroCliente();
+		}else if (2 == opc) {
+			showCadastroFuncionario();
 		}
 		scan.close();
 		
@@ -57,18 +59,56 @@ public class Principal {
 	 * Cadastros
 	 * */
 	
+	private static void showCadastroFuncionario() throws FileNotFoundException, ClassNotFoundException, IOException {
+		System.out.println("________________________________________________");
+		System.out.println("|               Funcionario                    |");
+		System.out.println("|__Digite______________________________________|");
+		Scanner scan = new Scanner(System.in);
+		System.out.print("Nome: ");
+		String nome = scan.nextLine();
+		System.out.print("CPF: ");
+		String cpf = scan.nextLine();
+		System.out.print("RG: ");
+		String rg = scan.nextLine();
+		System.out.print("Telefone: ");
+		String telefone = scan.nextLine();
+		System.out.print("PIS: ");
+		String pis = scan.nextLine();
+		System.out.print("PASEP:");
+		String pasep = scan.nextLine();
+		System.out.print("Carteira Trabalho: ");
+		String carteiraTrabalho = scan.nextLine();
+		System.out.print("Salário: ");
+		String salario = scan.nextLine();
+		
+		Funcionario func = new Funcionario(nome, cpf, rg, pis, pasep, carteiraTrabalho, salario);
+		System.out.println("Deseja salvar o funcionário ("+cpf+")"+nome+"? S - Sim | N - Não");
+		System.out.print("Resposta: ");
+		String opc = scan.next();
+		if(opc.equals("S")) {
+			Funcionario.salvar(func);
+		}
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		showCadastros();
+		scan.close();
+	}
+	
 	private static void showCadastroCliente() throws FileNotFoundException, ClassNotFoundException, IOException {
 		System.out.println("________________________________________________");
 		System.out.println("|                 Cliente                      |");
 		System.out.println("|__Digite______________________________________|");
 		Scanner scan = new Scanner(System.in);
-		System.out.print("Nome:");
+		System.out.print("Nome: ");
 		String nome = scan.nextLine();
-		System.out.print("CPF:");
+		System.out.print("CPF: ");
 		String cpf = scan.nextLine();
-		System.out.print("RG:");
+		System.out.print("RG: ");
 		String rg = scan.nextLine();
-		System.out.print("Telefone:");
+		System.out.print("Telefone: ");
 		String telefone = scan.nextLine();
 		
 		Cliente clienteCadastro = new Cliente(nome, cpf, rg, telefone);
@@ -87,6 +127,10 @@ public class Principal {
 		scan.close();
 	}
 	
+	/**
+	 * Relatórios
+	 */
+	
 	private static void showRelatorios() throws FileNotFoundException, ClassNotFoundException, IOException {
 		System.out.println("________________________________________________");
 		System.out.println("|                 Relatórios                   |");
@@ -102,9 +146,27 @@ public class Principal {
 		if (1 == opc) {
 			List<Cliente> clientes = Cliente.lerTodosClientes();
 			System.out.println("Imprimindo clientes:");
-			for (Cliente cliente : clientes) {
+			for (Cliente cliente: clientes) {
 				System.out.println(cliente);
 			}
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			showCadastros();
+		}else if (2 == opc) {
+			List<Funcionario> funcionarios = Funcionario.lerTodosFuncionarios();
+			System.out.println("Imprimindo funcionários:");
+			for (Funcionario funcionario : funcionarios) {
+				System.out.println(funcionario);
+			}
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			showRelatorios();
 		}else if(5 == opc) {
 			showMenu();
 		}
