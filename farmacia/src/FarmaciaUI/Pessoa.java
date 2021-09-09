@@ -4,10 +4,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Pessoa implements Serializable{
+public class Pessoa implements Serializable {
 	/**
 	 * 
 	 */
+	protected static Generico generico = new Generico();
 	private static final long serialVersionUID = 1L;
 	/* Attributes */
 	private String nome;

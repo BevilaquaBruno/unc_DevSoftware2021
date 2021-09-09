@@ -14,9 +14,7 @@ import java.util.List;
 import farmacia.Funcionario;
 
 public class Cliente extends Pessoa implements Serializable{
-	/**
-	 * 
-	 */
+	public static Generico generico = new Generico();
 	private static final long serialVersionUID = 1L;
 	/* Attributes */
 	private String telefone;
@@ -40,37 +38,16 @@ public class Cliente extends Pessoa implements Serializable{
 	}
 	
 	/* Methods */
-	public static void salvar(Cliente cl) throws IOException, FileNotFoundException, ClassNotFoundException {
-		List<Cliente> clieList = Cliente.lerTodosClientes();
-		clieList.add(cl);
-		File f = new File(Cliente.ARQUIVO_SERIALIZACAO);
-
-		/* Serializar lista de Funcionários */
-		FileOutputStream fos = new FileOutputStream(f);
-		try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-			oos.writeObject(clieList);
-		}
-		System.out.println("O cliente foi salvo!");
+	public static void salvar(Cliente cl) {
+		generico.salvarEntidade(cl, Cliente.ARQUIVO_SERIALIZACAO);
 	}
 	
-	public static List<Cliente> lerTodosClientes() throws ClassNotFoundException {
-		File f = new File(Cliente.ARQUIVO_SERIALIZACAO);
-		FileInputStream fis;
-		try {
-			try {
-				fis = new FileInputStream(f);
-				ObjectInputStream ois = new ObjectInputStream(fis);
-				return (List<Cliente>) ois.readObject();
-			} catch (FileNotFoundException e) {
-				FileOutputStream fos = new FileOutputStream(f);
-				ObjectOutputStream oos = new ObjectOutputStream(fos);
-				List<Cliente> cl = new ArrayList();
-				return cl;
-			}
-		} catch (IOException e) {
-			List<Cliente> cl = new ArrayList();
-			return cl;
-		}
+	public static List<Cliente> lerTodos() throws ClassNotFoundException {
+		return generico.lerTodasEntidades(Cliente.ARQUIVO_SERIALIZACAO);
+	}
+	
+	public static void showAll() {
+		generico.showLista(Cliente.ARQUIVO_SERIALIZACAO);
 	}
 	
 	/* Overrides */

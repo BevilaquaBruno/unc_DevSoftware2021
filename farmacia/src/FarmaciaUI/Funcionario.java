@@ -11,10 +11,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Funcionario extends Pessoa implements Serializable{
-	/**
-	 * 
-	 */
+public class Funcionario extends Pessoa{
 	private static final long serialVersionUID = 1L;
 	/* Attributes */
 	private String pis;
@@ -69,41 +66,19 @@ public class Funcionario extends Pessoa implements Serializable{
 	}
 	
 	/* Methods */
-	public static void salvar(Funcionario func) throws IOException, FileNotFoundException, ClassNotFoundException {
-		List<Funcionario> funcList = Funcionario.lerTodosFuncionarios();
-		funcList.add(func);
-		File f = new File(Funcionario.ARQUIVO_SERIALIZACAO);
-
-		/* Serializar lista de Funcionários */
-		FileOutputStream fos = new FileOutputStream(f);
-		try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-			oos.writeObject(funcList);
-		}
-		System.out.println("O funcionário foi salvo!");
+	public static void salvar(Funcionario func) {
+		generico.salvarEntidade(func, Funcionario.ARQUIVO_SERIALIZACAO);
 	}
 	
-	public static List<Funcionario> lerTodosFuncionarios() throws ClassNotFoundException {
-		File f = new File(Funcionario.ARQUIVO_SERIALIZACAO);
-		FileInputStream fis;
-		try {
-			try {
-				fis = new FileInputStream(f);
-				ObjectInputStream ois = new ObjectInputStream(fis);
-				return (List<Funcionario>) ois.readObject();
-			} catch (FileNotFoundException e) {
-				FileOutputStream fos = new FileOutputStream(f);
-				ObjectOutputStream oos = new ObjectOutputStream(fos);
-				List<Funcionario> fc = new ArrayList();
-				return fc;
-			}
-		} catch (IOException e) {
-			List<Funcionario> fc = new ArrayList();
-			return fc;
-		}
+	public static List<Funcionario> lerTodosFuncionarios() {
+		return generico.lerTodasEntidades(Funcionario.ARQUIVO_SERIALIZACAO);
+	}
+	
+	public static void showFuncionarios() {
+		generico.showLista(Funcionario.ARQUIVO_SERIALIZACAO);
 	}
 	
 	/* Overrides */
-	@Override
 	public String toString() {
 		return super.toString()+" PIS:"+this.pis+" PASEP:"+this.pasep+" Carteira Trabalho:"+this.carteiraTrabalho+" Salário:"+this.salario;
 	}

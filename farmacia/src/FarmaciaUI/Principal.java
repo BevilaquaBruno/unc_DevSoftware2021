@@ -1,5 +1,6 @@
 package FarmaciaUI;
 
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Iterator;
@@ -16,17 +17,16 @@ public class Principal {
 		System.out.println("________________________________________________");
 		System.out.println("|            Sistema Farmacêutico              |");
 		System.out.println("|______________________________________________|");
-		System.out.println("|1. Cadastro                                   |");
-		System.out.println("|2. Estoque                                    |");
-		System.out.println("|3. Relatórios                                 |");
-		System.out.println("|4. Ajuda                                      |");
-		System.out.println("|5. Sair                                       |");
+		System.out.println("|1. Sair                                       |");
+		System.out.println("|2. Cadastro                                   |");
+		System.out.println("|3. Estoque                                    |");
+		System.out.println("|4. Relatórios                                 |");
 		System.out.print("Digite uma opção: ");
 		Scanner scan = new Scanner(System.in);
 		Integer opc = scan.nextInt();
-		if (1 == opc) {
+		if (2 == opc) {
 			showCadastros();
-		}else if (3 == opc) {
+		}else if (4 == opc) {
 			showRelatorios();
 		}
 		scan.close();
@@ -36,20 +36,24 @@ public class Principal {
 		System.out.println("________________________________________________");
 		System.out.println("|                 Cadastros                    |");
 		System.out.println("|______________________________________________|");
-		System.out.println("|1. Cliente                                    |");
-		System.out.println("|2. Funcionario                                |");
-		System.out.println("|3. Farmaceutico                               |");
-		System.out.println("|4. Produtos                                   |");
-		System.out.println("|5. Voltar                                     |");
+		System.out.println("|1. Voltar                                     |");
+		System.out.println("|2. Cliente                                    |");
+		System.out.println("|3. Funcionario                                |");
+		System.out.println("|4. Farmaceutico                               |");
+		System.out.println("|5. Cat. Produto                               |");
 		System.out.print("Digite uma opção: ");
 		Scanner scan = new Scanner(System.in);
 		Integer opc = scan.nextInt();
-		if (5 == opc) {
+		if (1 == opc) {
 			showMenu();
-		}else if (1 == opc){
+		}else if (2 == opc){
 			showCadastroCliente();
-		}else if (2 == opc) {
+		}else if (3 == opc) {
 			showCadastroFuncionario();
+		}else if (4 == opc) {
+			showCadastroFarmaceutico();
+		}else if(5 == opc) {
+			showCadastroCategoriaProduto();
 		}
 		scan.close();
 		
@@ -58,6 +62,32 @@ public class Principal {
 	/*
 	 * Cadastros
 	 * */
+	
+	private static void showCadastroCategoriaProduto() throws FileNotFoundException, ClassNotFoundException, IOException {
+		System.out.println("________________________________________________");
+		System.out.println("|               Cat. Produto                   |");
+		System.out.println("|__Digite______________________________________|");
+		Scanner scan = new Scanner(System.in);
+		System.out.print("Nome: ");
+		String nome = scan.nextLine();
+		System.out.print("Ícone: ");
+		String icone = scan.nextLine();
+		
+		CategoriaProduto catprod = new CategoriaProduto(nome, icone);
+		System.out.println("Deseja salvar a categoria de produto "+catprod.getNome()+"? S - Sim | N - Não");
+		System.out.print("Resposta: ");
+		String opc = scan.next();
+		if(opc.equals("S")) {
+			CategoriaProduto.salvar(catprod);
+		}
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		showCadastros();
+		scan.close();
+	}
 	
 	private static void showCadastroFuncionario() throws FileNotFoundException, ClassNotFoundException, IOException {
 		System.out.println("________________________________________________");
@@ -70,8 +100,6 @@ public class Principal {
 		String cpf = scan.nextLine();
 		System.out.print("RG: ");
 		String rg = scan.nextLine();
-		System.out.print("Telefone: ");
-		String telefone = scan.nextLine();
 		System.out.print("PIS: ");
 		String pis = scan.nextLine();
 		System.out.print("PASEP:");
@@ -127,6 +155,44 @@ public class Principal {
 		scan.close();
 	}
 	
+	private static void showCadastroFarmaceutico() throws FileNotFoundException, ClassNotFoundException, IOException {
+		System.out.println("________________________________________________");
+		System.out.println("|               Farmaceutico                   |");
+		System.out.println("|__Digite______________________________________|");
+		Scanner scan = new Scanner(System.in);
+		System.out.print("Nome: ");
+		String nome = scan.nextLine();
+		System.out.print("CPF: ");
+		String cpf = scan.nextLine();
+		System.out.print("RG: ");
+		String rg = scan.nextLine();
+		System.out.print("PIS: ");
+		String pis = scan.nextLine();
+		System.out.print("PASEP:");
+		String pasep = scan.nextLine();
+		System.out.print("Carteira Trabalho: ");
+		String carteiraTrabalho = scan.nextLine();
+		System.out.print("Salário: ");
+		String salario = scan.nextLine();
+		System.out.print("Anvisa: ");
+		String anvisa = scan.nextLine();
+		
+		Farmaceutico farmaceuticoCadastro = new Farmaceutico(nome, cpf, rg, pis, pasep, carteiraTrabalho, salario, anvisa);
+		System.out.println("Deseja salvar o farmaceutico ("+cpf+")"+nome+"? S - Sim | N - Não");
+		System.out.print("Resposta: ");
+		String opc = scan.next();
+		if(opc.equals("S")) {
+			Farmaceutico.salvar(farmaceuticoCadastro);
+		}
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		showCadastros();
+		scan.close();
+	}
+	
 	/**
 	 * Relatórios
 	 */
@@ -135,40 +201,32 @@ public class Principal {
 		System.out.println("________________________________________________");
 		System.out.println("|                 Relatórios                   |");
 		System.out.println("|______________________________________________|");
-		System.out.println("|1. Cliente                                    |");
-		System.out.println("|2. Funcionario                                |");
-		System.out.println("|3. Farmaceutico                               |");
-		System.out.println("|4. Produtos                                   |");
-		System.out.println("|5. Voltar                                     |");
+		System.out.println("|1. Voltar                                     |");
+		System.out.println("|2. Cliente                                    |");
+		System.out.println("|3. Funcionario                                |");
+		System.out.println("|4. Farmaceutico                               |");
+		System.out.println("|5. Cat. Produto                               |");
 		System.out.print("Digite uma opção: ");
 		Scanner scan = new Scanner(System.in);
 		Integer opc = scan.nextInt();
-		if (1 == opc) {
-			List<Cliente> clientes = Cliente.lerTodosClientes();
-			System.out.println("Imprimindo clientes:");
-			for (Cliente cliente: clientes) {
-				System.out.println(cliente);
-			}
-			try {
-				Thread.sleep(5000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			showCadastros();
-		}else if (2 == opc) {
-			List<Funcionario> funcionarios = Funcionario.lerTodosFuncionarios();
-			System.out.println("Imprimindo funcionários:");
-			for (Funcionario funcionario : funcionarios) {
-				System.out.println(funcionario);
-			}
+		if(1 == opc) {
+			showMenu();
+		} else if (2 == opc) {
+			Cliente.showAll();
+		}else if (3 == opc) {
+			Funcionario.showFuncionarios();
+		}else if(4 == opc) {
+			Farmaceutico.showFarmaceuticos();
+		}else if (5 == opc) {
+			CategoriaProduto.showCategoriasProdutos();
+		}
+		if(1 != opc) {
 			try {
 				Thread.sleep(5000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 			showRelatorios();
-		}else if(5 == opc) {
-			showMenu();
 		}
 		scan.close();
 		
