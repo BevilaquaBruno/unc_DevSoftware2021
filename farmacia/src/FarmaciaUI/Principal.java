@@ -3,6 +3,9 @@ package FarmaciaUI;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
@@ -41,6 +44,7 @@ public class Principal {
 		System.out.println("|3. Funcionario                                |");
 		System.out.println("|4. Farmaceutico                               |");
 		System.out.println("|5. Cat. Produto                               |");
+		System.out.println("|6. Produto                                    |");
 		System.out.print("Digite uma opção: ");
 		Scanner scan = new Scanner(System.in);
 		Integer opc = scan.nextInt();
@@ -54,6 +58,8 @@ public class Principal {
 			showCadastroFarmaceutico();
 		}else if(5 == opc) {
 			showCadastroCategoriaProduto();
+		}else if (6 == opc) {
+			showCadastroProduto();
 		}
 		scan.close();
 		
@@ -62,6 +68,49 @@ public class Principal {
 	/*
 	 * Cadastros
 	 * */
+	
+	private static void showCadastroProduto() throws FileNotFoundException, ClassNotFoundException, IOException {
+		System.out.println("________________________________________________");
+		System.out.println("|               Produto                        |");
+		System.out.println("|__Digite______________________________________|");
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Código de barra: ");
+		String codBarra = scan.nextLine();
+		System.out.println("Lote: ");
+		String lote = scan.nextLine();
+		System.out.println("Data Fabricação: ");
+		String dataFab = scan.nextLine();
+		Date dataFabricacao = new Date(Integer.parseInt(dataFab.split("/")[2]), Integer.parseInt(dataFab.split("/")[1])-1, Integer.parseInt(dataFab.split("/")[0]));
+		System.out.println("Data Validade: ");
+		String dataVal = scan.nextLine();
+		Date dataValidade = new Date(Integer.parseInt(dataVal.split("/")[2]), Integer.parseInt(dataVal.split("/")[1])-1, Integer.parseInt(dataVal.split("/")[0]));
+		System.out.println("Valor: ");
+		Float valor = scan.nextFloat();
+		System.out.println("Idade Mínima: ");
+		Integer idadeMinima = scan.nextInt();
+		System.out.println("Idade Máxima: ");
+		Integer idadeMaxima = scan.nextInt();
+		System.out.println("Categoria de produto - Nome: ");
+		String catProdNome = scan.nextLine();
+		System.out.println("Categoria de produto - Ícone: ");
+		String catProdIcone = scan.nextLine();
+		
+		CategoriaProduto catProd = new CategoriaProduto(catProdNome, catProdNome);
+		Produto prod = new Produto(codBarra, lote, dataFabricacao, dataValidade, valor, idadeMinima, idadeMaxima, catProd);
+		System.out.println("Deseja salvar o  produto? S - Sim | N - Não");
+		System.out.print("Resposta: ");
+		String opc = scan.next();
+		if(opc.equals("S")) {
+			Produto.salvar(prod);
+		}
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		showCadastros();
+		scan.close();
+	}
 	
 	private static void showCadastroCategoriaProduto() throws FileNotFoundException, ClassNotFoundException, IOException {
 		System.out.println("________________________________________________");
@@ -206,6 +255,7 @@ public class Principal {
 		System.out.println("|3. Funcionario                                |");
 		System.out.println("|4. Farmaceutico                               |");
 		System.out.println("|5. Cat. Produto                               |");
+		System.out.println("|6. Produto                                    |");
 		System.out.print("Digite uma opção: ");
 		Scanner scan = new Scanner(System.in);
 		Integer opc = scan.nextInt();
@@ -219,6 +269,8 @@ public class Principal {
 			Farmaceutico.showFarmaceuticos();
 		}else if (5 == opc) {
 			CategoriaProduto.showCategoriasProdutos();
+		}else if (6 == opc) {
+			Produto.showProdutos();
 		}
 		if(1 != opc) {
 			try {

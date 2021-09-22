@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Pessoa implements Serializable {
+public class Pessoa implements Serializable, Comparable {
 	/**
 	 * 
 	 */
@@ -53,6 +53,12 @@ public class Pessoa implements Serializable {
 	@Override
 	public String toString() {
 		return "Nome: "+this.nome+" CPF: "+this.cpf+" RG:"+this.rg;
+	}
+
+	@Override
+	public int compareTo(Object o) {
+		Pessoa e =(Pessoa) o;
+		return this.getNome().compareTo(e.getNome());
 	}
 
 }
