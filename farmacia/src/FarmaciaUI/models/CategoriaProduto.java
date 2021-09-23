@@ -1,15 +1,18 @@
-package FarmaciaUI;
+package FarmaciaUI.models;
 
 import java.io.Serializable;
 import java.util.List;
 
-public class CategoriaProduto implements Serializable{
+import FarmaciaUI.Generico;
+
+public class CategoriaProduto implements Serializable, Comparable<Object> {
 	public static Generico generico = new Generico();
 	private String nome;
 	private String icone;
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 	
-	public static String ARQUIVO_SERIALIZACAO = "C:/bruno/UNC/2_fase/desenvolvimento_software/unc_DevSoftware2021/farmacia/database/categoriaproduto.obj";
+	public static String ARQUIVO_SERIALIZACAO = "C:/bruno/UNC/2_fase/desenvolvimento_software/unc_DevSoftware2021/farmacia/database/2"
+			+ ".obj";
 	
 	public CategoriaProduto(String nome, String icone) {
 		this.nome = nome;
@@ -51,5 +54,11 @@ public class CategoriaProduto implements Serializable{
 	@Override
 	public String toString() {
 		return "Nome: "+this.nome+" Icone: "+this.icone;
+	}
+
+
+	@Override
+	public int compareTo(Object o) {
+		return this.getNome().compareTo(((CategoriaProduto) o).getNome());
 	}
 }

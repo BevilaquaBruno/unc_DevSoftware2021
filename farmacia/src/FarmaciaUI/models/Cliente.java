@@ -1,11 +1,12 @@
-package FarmaciaUI;
+package FarmaciaUI.models;
 
 import java.io.Serializable;
 import java.util.List;
 
+import FarmaciaUI.Generico;
 import farmacia.Funcionario;
 
-public class Cliente extends Pessoa implements Serializable{
+public class Cliente extends Pessoa implements Serializable, Comparable<Object>{
 	public static Generico generico = new Generico();
 	private static final long serialVersionUID = 1L;
 	/* Attributes */
@@ -46,5 +47,10 @@ public class Cliente extends Pessoa implements Serializable{
 	@Override
 	public String toString() {
 		return super.toString()+" Telefone:"+this.telefone;
+	}
+	
+	@Override
+	public int compareTo(Object o) {
+		return this.getNome().compareTo(((Cliente) o).getNome());
 	}
 }

@@ -8,5 +8,5 @@ public interface SerializacaoGenerica {
 	public <E> List<E> lerTodasEntidades(String strArquivo);
 	public <E> boolean salvarListaEntidades(List<E> lstEntidades, String strArquivo);
 	public <E> List<E> criarListaVazia(File f);
-	public <E> void showLista(String strArquivo);
+	<E extends Comparable<E>> void showLista(String strArquivo);
 }

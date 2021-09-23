@@ -1,8 +1,8 @@
-package FarmaciaUI;
+package FarmaciaUI.models;
 
 import java.util.List;
 
-public class Farmaceutico extends Funcionario {
+public class Farmaceutico extends Funcionario implements Comparable<Object> {
 	/* Attributes */
 	private static final long serialVersionUID = 1L;
 	private String registroAnvisa;
@@ -43,5 +43,10 @@ public class Farmaceutico extends Funcionario {
 	@Override
 	public String toString() {
 		return super.toString()+";"+this.registroAnvisa;
+	}
+	
+	@Override
+	public int compareTo(Object o) {
+		return this.getNome().compareTo(((Farmaceutico) o).getNome());
 	}
 }

@@ -1,4 +1,4 @@
-package FarmaciaUI;
+package FarmaciaUI.models;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,8 +11,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Funcionario extends Pessoa{
-	private static final long serialVersionUID = 1L;
+public class Funcionario extends Pessoa implements Comparable<Object>{
+	private static final long serialVersionUID = 2L;
 	/* Attributes */
 	private String pis;
 	private String pasep;
@@ -80,6 +80,11 @@ public class Funcionario extends Pessoa{
 	
 	/* Overrides */
 	public String toString() {
-		return super.toString()+" PIS:"+this.pis+" PASEP:"+this.pasep+" Carteira Trabalho:"+this.carteiraTrabalho+" Salário:"+this.salario;
+		return super.toString()+" PIS:"+this.pis+" PASEP:"+this.pasep+" Carteira Trabalho:"+this.carteiraTrabalho+" Salï¿½rio:"+this.salario;
+	}
+	
+	@Override
+	public int compareTo(Object o) {
+		return this.getNome().compareTo(((Funcionario) o).getNome());
 	}
 }

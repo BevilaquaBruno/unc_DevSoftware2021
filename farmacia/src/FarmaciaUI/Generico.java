@@ -44,7 +44,7 @@ public class Generico implements SerializacaoGenerica {
 			fos.close();
 			System.out.println("Gravado com sucesso.");
 		}catch (FileNotFoundException e) {
-			System.out.println("Arquivo não encontrado.");
+			System.out.println("Arquivo nï¿½o encontrado.");
 		} catch (IOException e) {
 			System.out.println("Erro ao gravar.");
 		}
@@ -98,7 +98,7 @@ public class Generico implements SerializacaoGenerica {
 
 	@Override
 	public <E> boolean salvarListaEntidades(List<E> lstEntidades, String strArquivo) {
-		/* Serializar lista de Funcionários */
+		/* Serializar lista de Funcionï¿½rios */
 		File f = new File(strArquivo);
 		try {
 			FileOutputStream fos = new FileOutputStream(f);
@@ -112,8 +112,9 @@ public class Generico implements SerializacaoGenerica {
 	}
 
 	@Override
-	public <E> void showLista(String strArquivo) {
+	public <E extends Comparable<E>> void showLista(String strArquivo) {
 		List<E> lstEntidades = lerTodasEntidades(strArquivo);
+		lstEntidades.sort(null);
 		for (E entidade : lstEntidades) {
 			System.out.println(entidade);
 		}
