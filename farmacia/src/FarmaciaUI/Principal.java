@@ -24,13 +24,13 @@ public class Principal {
 
 	private static void showMenu() throws FileNotFoundException, ClassNotFoundException, IOException {
 		System.out.println("________________________________________________");
-		System.out.println("|            Sistema Farmac�utico              |");
+		System.out.println("|            Sistema Farmacêutico              |");
 		System.out.println("|______________________________________________|");
 		System.out.println("|1. Sair                                       |");
 		System.out.println("|2. Cadastro                                   |");
 		System.out.println("|3. Estoque                                    |");
-		System.out.println("|4. Relat�rios                                 |");
-		System.out.print("Digite uma op��o: ");
+		System.out.println("|4. Relatórios                                 |");
+		System.out.print("Digite uma opção: ");
 		Scanner scan = new Scanner(System.in);
 		Integer opc = scan.nextInt();
 		if (2 == opc) {
@@ -51,7 +51,7 @@ public class Principal {
 		System.out.println("|4. Farmaceutico                               |");
 		System.out.println("|5. Cat. Produto                               |");
 		System.out.println("|6. Produto                                    |");
-		System.out.print("Digite uma op��o: ");
+		System.out.print("Digite uma opção: ");
 		Scanner scan = new Scanner(System.in);
 		Integer opc = scan.nextInt();
 		if (1 == opc) {
@@ -80,11 +80,11 @@ public class Principal {
 		System.out.println("|               Produto                        |");
 		System.out.println("|__Digite______________________________________|");
 		Scanner scan = new Scanner(System.in);
-		System.out.println("C�digo de barra: ");
+		System.out.println("Código de barra: ");
 		String codBarra = scan.nextLine();
 		System.out.println("Lote: ");
 		String lote = scan.nextLine();
-		System.out.println("Data Fabrica��o: ");
+		System.out.println("Data Fabricação: ");
 		String dataFab = scan.nextLine();
 		Date dataFabricacao = new Date(Integer.parseInt(dataFab.split("/")[2]), Integer.parseInt(dataFab.split("/")[1])-1, Integer.parseInt(dataFab.split("/")[0]));
 		System.out.println("Data Validade: ");
@@ -92,18 +92,18 @@ public class Principal {
 		Date dataValidade = new Date(Integer.parseInt(dataVal.split("/")[2]), Integer.parseInt(dataVal.split("/")[1])-1, Integer.parseInt(dataVal.split("/")[0]));
 		System.out.println("Valor: ");
 		Float valor = scan.nextFloat();
-		System.out.println("Idade M�nima: ");
+		System.out.println("Idade Mánima: ");
 		Integer idadeMinima = scan.nextInt();
-		System.out.println("Idade M�xima: ");
+		System.out.println("Idade Míxima: ");
 		Integer idadeMaxima = scan.nextInt();
 		System.out.println("Categoria de produto - Nome: ");
 		String catProdNome = scan.nextLine();
-		System.out.println("Categoria de produto - �cone: ");
+		System.out.println("Categoria de produto - ícone: ");
 		String catProdIcone = scan.nextLine();
 		
 		CategoriaProduto catProd = new CategoriaProduto(catProdNome, catProdNome);
 		Produto prod = new Produto(codBarra, lote, dataFabricacao, dataValidade, valor, idadeMinima, idadeMaxima, catProd);
-		System.out.println("Deseja salvar o  produto? S - Sim | N - N�o");
+		System.out.println("Deseja salvar o  produto? S - Sim | N - Não");
 		System.out.print("Resposta: ");
 		String opc = scan.next();
 		if(opc.equals("S")) {
@@ -125,11 +125,11 @@ public class Principal {
 		Scanner scan = new Scanner(System.in);
 		System.out.print("Nome: ");
 		String nome = scan.nextLine();
-		System.out.print("�cone: ");
+		System.out.print("ícone: ");
 		String icone = scan.nextLine();
 		
 		CategoriaProduto catprod = new CategoriaProduto(nome, icone);
-		System.out.println("Deseja salvar a categoria de produto "+catprod.getNome()+"? S - Sim | N - N�o");
+		System.out.println("Deseja salvar a categoria de produto "+catprod.getNome()+"? S - Sim | N - Não");
 		System.out.print("Resposta: ");
 		String opc = scan.next();
 		if(opc.equals("S")) {
@@ -161,11 +161,11 @@ public class Principal {
 		String pasep = scan.nextLine();
 		System.out.print("Carteira Trabalho: ");
 		String carteiraTrabalho = scan.nextLine();
-		System.out.print("Sal�rio: ");
+		System.out.print("Salário: ");
 		String salario = scan.nextLine();
 		
 		Funcionario func = new Funcionario(nome, cpf, rg, pis, pasep, carteiraTrabalho, salario);
-		System.out.println("Deseja salvar o funcion�rio ("+cpf+")"+nome+"? S - Sim | N - N�o");
+		System.out.println("Deseja salvar o funcionário ("+cpf+")"+nome+"? S - Sim | N - Não");
 		System.out.print("Resposta: ");
 		String opc = scan.next();
 		if(opc.equals("S")) {
@@ -195,7 +195,7 @@ public class Principal {
 		String telefone = scan.nextLine();
 		
 		Cliente clienteCadastro = new Cliente(nome, cpf, rg, telefone);
-		System.out.println("Deseja salvar o cliente ("+cpf+")"+nome+"? S - Sim | N - N�o");
+		System.out.println("Deseja salvar o cliente ("+cpf+")"+nome+"? S - Sim | N - Não");
 		System.out.print("Resposta: ");
 		String opc = scan.next();
 		if(opc.equals("S")) {
@@ -227,13 +227,13 @@ public class Principal {
 		String pasep = scan.nextLine();
 		System.out.print("Carteira Trabalho: ");
 		String carteiraTrabalho = scan.nextLine();
-		System.out.print("Sal�rio: ");
+		System.out.print("Salário: ");
 		String salario = scan.nextLine();
 		System.out.print("Anvisa: ");
 		String anvisa = scan.nextLine();
 		
 		Farmaceutico farmaceuticoCadastro = new Farmaceutico(nome, cpf, rg, pis, pasep, carteiraTrabalho, salario, anvisa);
-		System.out.println("Deseja salvar o farmaceutico ("+cpf+")"+nome+"? S - Sim | N - N�o");
+		System.out.println("Deseja salvar o farmacêutico ("+cpf+")"+nome+"? S - Sim | N - Não");
 		System.out.print("Resposta: ");
 		String opc = scan.next();
 		if(opc.equals("S")) {
@@ -249,12 +249,12 @@ public class Principal {
 	}
 	
 	/**
-	 * Relat�rios
+	 * Relatórios
 	 */
 	
 	private static void showRelatorios() throws FileNotFoundException, ClassNotFoundException, IOException {
 		System.out.println("________________________________________________");
-		System.out.println("|                 Relat�rios                   |");
+		System.out.println("|                 Relatórios                   |");
 		System.out.println("|______________________________________________|");
 		System.out.println("|1. Voltar                                     |");
 		System.out.println("|2. Cliente                                    |");
@@ -262,7 +262,7 @@ public class Principal {
 		System.out.println("|4. Farmaceutico                               |");
 		System.out.println("|5. Cat. Produto                               |");
 		System.out.println("|6. Produto                                    |");
-		System.out.print("Digite uma op��o: ");
+		System.out.print("Digite uma opção: ");
 		Scanner scan = new Scanner(System.in);
 		Integer opc = scan.nextInt();
 		if(1 == opc) {
