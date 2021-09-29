@@ -185,21 +185,44 @@ public class Principal {
 		System.out.println("|                 Cliente                      |");
 		System.out.println("|__Digite______________________________________|");
 		Scanner scan = new Scanner(System.in);
-		System.out.print("Nome: ");
-		String nome = scan.nextLine();
-		System.out.print("CPF: ");
-		String cpf = scan.nextLine();
-		System.out.print("RG: ");
-		String rg = scan.nextLine();
-		System.out.print("Telefone: ");
-		String telefone = scan.nextLine();
-		
-		Cliente clienteCadastro = new Cliente(nome, cpf, rg, telefone);
-		System.out.println("Deseja salvar o cliente ("+cpf+")"+nome+"? S - Sim | N - Não");
-		System.out.print("Resposta: ");
-		String opc = scan.next();
-		if(opc.equals("S")) {
-			Cliente.salvar(clienteCadastro);
+		System.out.print("Cadastrar, Atualizar ou Excluir? C, A ou E ");
+		String ins_upt = scan.nextLine();
+		Integer id = 0;
+		if (ins_upt.equals("E")) {
+			Cliente.showAll();
+			System.out.println("Digite o id de quem quer excluir.");
+			id = Integer.parseInt(scan.nextLine());
+			Cliente.remover(id);
+		} else if(ins_upt.equals("A") || ins_upt.equals("C")) {
+			if(ins_upt.equals("A")) {
+				System.out.println("Digite o id de quem quer atualizar.");
+				id = Integer.parseInt(scan.nextLine());
+				Cliente.show(id);
+			}
+			System.out.print("Nome: ");
+			String nome = scan.nextLine();
+			System.out.print("CPF: ");
+			String cpf = scan.nextLine();
+			System.out.print("RG: ");
+			String rg = scan.nextLine();
+			System.out.print("Telefone: ");
+			String telefone = scan.nextLine();
+			
+			Cliente clienteCadastro = new Cliente(nome, cpf, rg, telefone);
+			if(id > 0) {
+				clienteCadastro.setId(id);
+			}
+			
+			System.out.println("Deseja salvar o cliente ("+cpf+")"+nome+"? S - Sim | N - Não");
+			System.out.print("Resposta: ");
+			String opc = scan.next();
+			if(opc.equals("S")) {
+				if(id == 0) {
+					Cliente.salvar(clienteCadastro);
+				}else {
+					Cliente.atualizar(clienteCadastro);
+				}
+			}
 		}
 		try {
 			Thread.sleep(2000);

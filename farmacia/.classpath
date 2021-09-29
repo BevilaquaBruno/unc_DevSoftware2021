@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry excluding="farmacia/PrincipalAtvSerializacao.java" kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-11">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry excluding="farmacia/PrincipalAtvSerializacao.java" kind="src" path="src"/>
+	<classpathentry kind="lib" path="C:/bruno/UNC/2_fase/desenvolvimento_software/unc_DevSoftware2021/farmacia/database/mysql-connector-java-8.0.25.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
